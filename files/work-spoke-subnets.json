@@ -1,0 +1,14 @@
+{
+    "default": {
+        "address_prefixes": [
+            "10.1.0.0/24"
+        ],
+        "requires_nsg": true
+    },
+    "aks-subnet": {
+        "address_prefixes": [
+            "10.1.128.0/18"
+        ],
+        "requires_nsg": true
+    }
+}

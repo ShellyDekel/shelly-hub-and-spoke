@@ -1,0 +1,82 @@
+{
+    "network_rules": [
+        {
+            "name": "AllowGrafanaAccessToSubscription",
+            "source_addresses": [
+                "10.2.0.4"
+            ],
+            "source_ip_groups": [],
+            "destination_ports": [
+                "443"
+            ],
+            "protocols": [
+                "TCP"
+            ],
+            "destination_addresses": [],
+            "destination_fqdns": [
+                "management.azure.com",
+                "management.core.windows.net"
+            ],
+            "destination_ip_groups": []
+        },
+        {
+            "name": "AllowGrafanaAccessToLogs",
+            "source_addresses": [
+                "10.2.0.4"
+            ],
+            "source_ip_groups": [],
+            "destination_ports": [
+                "443"
+            ],
+            "protocols": [
+                "TCP"
+            ],
+            "destination_addresses": [],
+            "destination_fqdns": [
+                "api.loganalytics.io"
+            ],
+            "destination_ip_groups": []
+        },
+        {
+            "name": "AllowWorkSpokeAccessToAzure",
+            "source_addresses": [
+                "10.1.0.4" 
+            ],
+            "source_ip_groups": [],
+            "destination_ports": [
+                "443"
+            ],
+            "protocols": [
+                "TCP"
+            ],
+            "destination_addresses": [
+                "loginmicrosoftonlinecom",
+                "AzureActiveDirectory",
+                "AzureContainerRegistry"
+            ],
+            "destination_fqdns": [],
+            "destination_ip_groups": []
+        },
+        {
+            "name": "AllowWorkSpokeAccessToAzureManagement",
+            "source_addresses": [
+                "10.1.0.4"
+            ],
+            "source_ip_groups": [],
+            "destination_ports": [
+                "443"
+            ],
+            "protocols": [
+                "TCP"
+            ],
+            "destination_addresses": [],
+            "destination_fqdns": [
+                "management.azure.com",
+                "management.core.windows.net"
+            ],
+            "destination_ip_groups": []
+        }
+    ],
+    "application_rules": [],
+    "nat_rules": []
+}
