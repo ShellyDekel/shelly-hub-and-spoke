@@ -20,7 +20,7 @@ variable "acr_name" {
 
 variable "sku" {
   type        = string
-  description = "(Required) The SKU name of the container registry. Possible values are Basic, Standard and Premium."
+  description = "(Required) The SKU name of the ACR. Possible values are Basic, Standard and Premium."
 }
 
 variable "private_endpoint_name" {
