@@ -1,11 +1,11 @@
 variable "resource_group_name" {
   type        = string
-  description = "(Required) the name of the resource group"
+  description = "(Required) The name of the Resource Group."
 }
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource"
+  description = "(Required) The location of the resource."
 }
 
 variable "subnet_id" {
@@ -15,7 +15,7 @@ variable "subnet_id" {
 
 variable "acr_name" {
   type        = string
-  description = "(Required) the name of the acr"
+  description = "(Required) The name of the ACR."
 }
 
 variable "sku" {
@@ -26,23 +26,23 @@ variable "sku" {
 variable "private_endpoint_name" {
   type        = string
   default     = null
-  description = "(Optional) name the private endpoint of the ACR."
+  description = "(Optional) Name the Private Endpoint of the ACR."
 }
 
 variable "admin_enabled" {
   type        = bool
   default     = true
-  description = "(Optional) enable admmin user, (default true)."
+  description = "(Optional) Enable Admin User, (default true)."
 }
 
 variable "dns_zone_name" {
   type        = string
   default     = "privatelink.azurecr.io"
-  description = "(Optional) name for the private dns zone of the acr."
+  description = "(Optional) Name for the Private DNS Zone of the ACR."
 }
 
 variable "log_analytics_workspace_id" {
   type        = string
   default     = null
-  description = "(Optional) link resource to a log analytics workspace to enable logs."
+  description = "(Optional) Link resource to a Log Analytics Workspace to enable logs."
 }
