@@ -29,9 +29,9 @@ locals {
   hub_has_remote_gateway = true
 }
 module "shelly_hub_vnet" {
-  source = "./modules/virtual-network"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/virtual-network"
 
-  virtual_network_name       = local.hub_virtual_network_name #TODO name
+  virtual_network_name       = local.hub_virtual_network_name #TODO name variable
   location                   = azurerm_resource_group.shelly_hub.location
   resource_group_name        = azurerm_resource_group.shelly_hub.name
   address_spaces             = local.hub_vnet_address_spaces
@@ -54,7 +54,7 @@ locals {
 }
 
 module "shelly_hub_firewall" {
-  source = "./modules/firewall"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/firewall"
 
   firewall_name                 = local.hub_firewall_name
   resource_group_name           = azurerm_resource_group.shelly_hub.name
@@ -85,7 +85,7 @@ locals {
 data "azurerm_client_config" "client" {}
 
 module "shelly_hub_vpn" {
-  source = "./modules/vpn" #TODO all modules are git repos, with ref 
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/vpn" #TODO all modules are git repos, with ref 
 
   resource_group_name                  = azurerm_resource_group.shelly_hub.name
   location                             = azurerm_resource_group.shelly_hub.location
@@ -114,7 +114,7 @@ locals {
 }
 
 module "shelly_hub_route_table" {
-  source = "./modules/route-table"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/route-table"
 
   route_table_name      = local.hub_route_table_name
   resource_group_name   = azurerm_resource_group.shelly_hub.name
@@ -130,7 +130,7 @@ locals {
 }
 
 module "shelly_hub_acr" {
-  source = "./modules/acr"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/acr"
 
   resource_group_name        = azurerm_resource_group.shelly_hub.name
   location                   = azurerm_resource_group.shelly_hub.location
@@ -166,7 +166,7 @@ locals {
 }
 
 module "log_analytics_logs" {
-  source = "./modules/log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/log-analytics-diagnostic-setting"
 
   name                       = local.log_analytics_diagnostic_setting_name
   target_resource_id         = azurerm_log_analytics_workspace.shelly_hub_log_analytics.id

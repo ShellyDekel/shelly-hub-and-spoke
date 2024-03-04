@@ -118,7 +118,7 @@ locals {
 
 module "vm_nic_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.vm_nic_diagnostic_setting_name
   target_resource_id         = azurerm_network_interface.network_interface.id

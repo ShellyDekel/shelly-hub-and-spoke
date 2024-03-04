@@ -86,7 +86,7 @@ locals {
 
 module "logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                           = local.diagnostic_setting_name
   target_resource_id             = azurerm_kubernetes_cluster.azure_kubernetes_service.id

@@ -64,7 +64,7 @@ locals {
 }
 
 module "acr-logs" {
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
   count  = var.log_analytics_workspace_id == null ? 0 : 1
 
   name                       = local.acr_diagnostic_setting_name
@@ -79,7 +79,7 @@ locals {
 }
 
 module "private_endpoint_nic_logs" {
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
   count  = var.log_analytics_workspace_id == null ? 0 : 1
 
   name                       = local.endpoint_nic_diagnostic_setting_name

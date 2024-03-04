@@ -27,7 +27,7 @@ locals {
 }
 
 module "shelly_monitor_spoke_vnet" {
-  source = "./modules/virtual-network"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/virtual-network"
 
   virtual_network_name       = local.monitor_spoke_virtual_network_name
   address_spaces             = local.monitor_spoke_address_spaces
@@ -55,7 +55,7 @@ locals {
 }
 
 module "shelly_monitor_spoke_vm" {
-  source = "./modules/virtual-machine"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/virtual-machine"
 
   vm_name                    = local.monitor_spoke_vm_name
   resource_group_name        = azurerm_resource_group.shelly_monitor_spoke.name
@@ -91,7 +91,7 @@ locals {
 }
 
 module "log_access_identity" {
-  source = "./modules/managed-identity"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/managed-identity"
 
   resource_group_name = azurerm_resource_group.shelly_monitor_spoke.name
   location            = azurerm_resource_group.shelly_monitor_spoke.location

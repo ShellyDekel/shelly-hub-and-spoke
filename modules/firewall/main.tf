@@ -203,7 +203,7 @@ locals {
 
 module "firewall_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                           = local.firewall_diagnostic_setting_name
   target_resource_id             = azurerm_firewall.firewall.id
@@ -215,7 +215,7 @@ module "firewall_logs" {
 
 module "firewall_ip_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.firewall_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.firewall_ip.id
@@ -226,7 +226,7 @@ module "firewall_ip_logs" {
 
 module "firewall_management_ip_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.firewall_management_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.firewall_management_ip.id

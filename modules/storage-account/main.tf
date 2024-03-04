@@ -56,7 +56,7 @@ locals {
 
 module "storage_account_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.storage_account_diagnostic_setting_name
   target_resource_id         = azurerm_storage_account.storage_account.id
@@ -67,7 +67,7 @@ module "storage_account_logs" {
 
 module "storage_account_service_logs" {
   for_each = var.log_analytics_workspace_id == null ? [] : local.storage_account_services
-  source   = "../log-analytics-diagnostic-setting"
+  source   = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = "${local.storage_account_diagnostic_setting_name}-${each.value}"
   target_resource_id         = "${azurerm_storage_account.storage_account.id}/${each.value}Services/default"
@@ -78,7 +78,7 @@ module "storage_account_service_logs" {
 
 module "storage_account_endpoint_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.storage_account_endpoint_diagnostic_setting_name
   target_resource_id         = azurerm_private_endpoint.private_endpoint.network_interface[0].id

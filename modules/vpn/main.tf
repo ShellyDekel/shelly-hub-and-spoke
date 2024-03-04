@@ -146,7 +146,7 @@ locals {
 
 module "vpn_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.vpn_diagnostic_setting_name
   target_resource_id         = azurerm_virtual_network_gateway.vpn_gateway.id
@@ -157,7 +157,7 @@ module "vpn_logs" {
 
 module "first_ip_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.vpn_first_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.vpn_first_ip.id
@@ -168,7 +168,7 @@ module "first_ip_logs" {
 
 module "second_ip_logs" {
   count  = var.log_analytics_workspace_id == null || !var.active_active ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.vpn_second_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.vpn_second_ip[0].id
@@ -179,7 +179,7 @@ module "second_ip_logs" {
 
 module "point_to_site_configuration_ip_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.point_to_site_configuration_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.point_to_site_configuration_ip.id

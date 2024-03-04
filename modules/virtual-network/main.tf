@@ -74,7 +74,7 @@ locals {
 
 module "vnet_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.vnet_diagnostic_setting_name
   target_resource_id         = azurerm_virtual_network.virtual_network.id
@@ -85,7 +85,7 @@ module "vnet_logs" {
 
 module "nsg_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
-  source = "../log-analytics-diagnostic-setting"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
   name                       = local.nsg_diagnostic_setting_name
   target_resource_id         = azurerm_network_security_group.default_subnet_nsg.id

@@ -28,7 +28,7 @@ locals {
 }
 
 module "shelly_work_spoke_vnet" {
-  source = "./modules/virtual-network"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/virtual-network"
 
   resource_group_name        = azurerm_resource_group.shelly_work_spoke.name
   location                   = azurerm_resource_group.shelly_work_spoke.location
@@ -56,7 +56,7 @@ locals {
 }
 
 module "shelly_work_spoke_vm" {
-  source = "./modules/virtual-machine"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/virtual-machine"
 
   vm_name                    = local.work_spoke_vm_name
   resource_group_name        = azurerm_resource_group.shelly_work_spoke.name
@@ -77,14 +77,14 @@ locals {
 }
 
 module "shelly_work_spoke_acr_access" {
-  source = "./modules/managed-identity"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/managed-identity"
 
   resource_group_name = azurerm_resource_group.shelly_work_spoke.name
   location            = azurerm_resource_group.shelly_work_spoke.location
   identity_name       = local.work_spoke_acr_access_identity
   role_assignments = {
-    "AcrPull" = module.shelly_hub_acr.acr_id
-    "AcrPush" = module.shelly_hub_acr.acr_id
+    "AcrPull" = module.shelly_hub_acr.id
+    "AcrPush" = module.shelly_hub_acr.id
   }
 }
 
@@ -96,7 +96,7 @@ locals {
 }
 
 module "shelly_work_spoke_aks" {
-  source = "./modules/aks"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/aks"
 
   resource_group_name            = azurerm_resource_group.shelly_work_spoke.name
   location                       = azurerm_resource_group.shelly_work_spoke.location
@@ -116,7 +116,7 @@ locals {
 }
 
 module "shelly_work_spoke_storage_account" {
-  source = "./modules/storage-account"
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/storage-account"
 
   resource_group_name           = azurerm_resource_group.shelly_work_spoke.name
   location                      = azurerm_resource_group.shelly_work_spoke.location
