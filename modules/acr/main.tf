@@ -1,7 +1,7 @@
 resource "azurerm_container_registry" "container_registry" {
   name                          = var.acr_name
-  resource_group_name           = var.resource_group_name
   location                      = var.location
+  resource_group_name           = var.resource_group_name
   sku                           = var.sku
   admin_enabled                 = var.admin_enabled
   public_network_access_enabled = false
@@ -20,8 +20,8 @@ locals {
 
 resource "azurerm_private_endpoint" "acr_private_endpoint" {
   name                = var.private_endpoint_name == null ? local.default_endpoint_name : var.private_endpoint_name
-  resource_group_name = var.resource_group_name
   location            = var.location
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
 
   private_service_connection {
