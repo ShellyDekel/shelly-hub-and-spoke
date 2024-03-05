@@ -61,15 +61,6 @@ resource "azurerm_virtual_network_peering" "network_peerings" {
 locals {
   vnet_diagnostic_setting_name = "${azurerm_virtual_network.virtual_network.name}-diagnostic-setting"
   nsg_diagnostic_setting_name  = "${azurerm_network_security_group.default_subnet_nsg.name}-diagnostic-setting"
-
-  vnet_enabled_logs = {
-    "allLogs" = "categoryGroup"
-  }
-
-  nsg_enabled_logs = {
-    "allLogs" = "categoryGroup"
-  }
-
 }
 
 module "vnet_logs" {
@@ -79,8 +70,6 @@ module "vnet_logs" {
   name                       = local.vnet_diagnostic_setting_name
   target_resource_id         = azurerm_virtual_network.virtual_network.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  save_all_metrics           = true
-  enabled_logs               = local.vnet_enabled_logs
 }
 
 module "nsg_logs" {
@@ -90,5 +79,4 @@ module "nsg_logs" {
   name                       = local.nsg_diagnostic_setting_name
   target_resource_id         = azurerm_network_security_group.default_subnet_nsg.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.nsg_enabled_logs
 }

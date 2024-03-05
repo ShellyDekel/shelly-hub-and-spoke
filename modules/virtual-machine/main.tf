@@ -123,6 +123,5 @@ module "vm_nic_logs" {
   name                       = local.vm_nic_diagnostic_setting_name
   target_resource_id         = azurerm_network_interface.network_interface.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  save_all_metrics           = true
 }
 #TODO add option for data disk.

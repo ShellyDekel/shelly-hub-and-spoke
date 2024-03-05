@@ -122,26 +122,6 @@ locals {
   vpn_first_ip_diagnostic_setting_name                   = "${azurerm_public_ip.vpn_first_ip.name}-diagnostic-setting"
   vpn_second_ip_diagnostic_setting_name                  = "${var.active_active ? azurerm_public_ip.vpn_second_ip[0].name : null}-diagnostic-setting"
   point_to_site_configuration_ip_diagnostic_setting_name = "${azurerm_public_ip.point_to_site_configuration_ip.name}-diagnostic-setting"
-
-  vpn_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
-
-  vpn_first_ip_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
-
-  vpn_second_ip_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
-
-  point_to_site_configuration_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
 }
 
 module "vpn_logs" {
@@ -151,8 +131,6 @@ module "vpn_logs" {
   name                       = local.vpn_diagnostic_setting_name
   target_resource_id         = azurerm_virtual_network_gateway.vpn_gateway.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.vpn_enabled_logs
-  save_all_metrics           = true
 }
 
 module "first_ip_logs" {
@@ -162,8 +140,6 @@ module "first_ip_logs" {
   name                       = local.vpn_first_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.vpn_first_ip.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.vpn_first_ip_enabled_logs
-  save_all_metrics           = true
 }
 
 module "second_ip_logs" {
@@ -173,8 +149,6 @@ module "second_ip_logs" {
   name                       = local.vpn_second_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.vpn_second_ip[0].id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.vpn_second_ip_enabled_logs
-  save_all_metrics           = true
 }
 
 module "point_to_site_configuration_ip_logs" {
@@ -184,6 +158,4 @@ module "point_to_site_configuration_ip_logs" {
   name                       = local.point_to_site_configuration_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.point_to_site_configuration_ip.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.point_to_site_configuration_enabled_logs
-  save_all_metrics           = true
 }

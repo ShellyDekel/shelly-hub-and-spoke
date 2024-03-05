@@ -8,7 +8,7 @@ resource "azurerm_kubernetes_cluster" "azure_kubernetes_service" {
   resource_group_name = var.resource_group_name
   dns_prefix          = local.dns_prefix
 
-  private_cluster_enabled             = var.private_cluster_enabled
+  private_cluster_enabled             = true
   automatic_channel_upgrade           = var.automatic_channel_upgrade
   azure_policy_enabled                = var.azure_policy_enabled
   private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enabled
@@ -39,7 +39,7 @@ resource "azurerm_kubernetes_cluster" "azure_kubernetes_service" {
   }
 
   dynamic "oms_agent" {
-    for_each = var.log_analytics_workspace_id == null ? [] : [1]
+    for_each = var.log_analytics_workspace_id == null ? [] : [false]
     content {
       log_analytics_workspace_id = var.log_analytics_workspace_id
 
@@ -60,38 +60,29 @@ resource "azurerm_kubernetes_cluster" "azure_kubernetes_service" {
   }
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "name" {
-  for_each              = var.cluster_node_pools
-  name                  = each.key
+locals {
+  cluster_node_pools = toset(var.cluster_node_pools)
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "node_pools" {
+  for_each = local.cluster_node_pools
+
+  name                  = each.value.cluster_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.azure_kubernetes_service.id
-  vm_size               = each.value
+  vm_size               = each.value.vm_size
+
 }
 
 locals {
   diagnostic_setting_name = "${azurerm_kubernetes_cluster.azure_kubernetes_service.name}-diagnostic-setting"
-  enabled_logs = {
-    "kube-apiserver"           = "category"
-    "kube-audit"               = "category"
-    "kube-audit-admin"         = "category"
-    "kube-controller-manager"  = "category"
-    "kube-scheduler"           = "category"
-    "cluster-autoscaler"       = "category"
-    "cloud-controller-manager" = "category"
-    "guard"                    = "category"
-    "csi-azuredisk-controller" = "category"
-    "csi-azurefile-controller" = "category"
-    "csi-snapshot-controller"  = "category"
-  }
 }
 
 module "logs" {
-  count  = var.log_analytics_workspace_id == null ? 0 : 1
   source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
+  count  = var.log_analytics_workspace_id == null ? 0 : 1
 
-  name                           = local.diagnostic_setting_name
-  target_resource_id             = azurerm_kubernetes_cluster.azure_kubernetes_service.id
-  log_analytics_workspace_id     = var.log_analytics_workspace_id
-  enabled_logs                   = local.enabled_logs
-  save_all_metrics               = true
-  log_analytics_destination_type = "Dedicated"
+  name                       = local.diagnostic_setting_name
+  target_resource_id         = azurerm_kubernetes_cluster.azure_kubernetes_service.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+  use_dedicated_tables       = true
 }

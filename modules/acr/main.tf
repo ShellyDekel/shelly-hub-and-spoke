@@ -85,5 +85,4 @@ module "private_endpoint_nic_logs" {
   name                       = local.endpoint_nic_diagnostic_setting_name
   target_resource_id         = azurerm_private_endpoint.acr_private_endpoint.network_interface[0].id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  save_all_metrics           = true
 }

@@ -9,7 +9,7 @@ resource "azurerm_storage_account" "storage_account" {
   allow_nested_items_to_be_public = false
   queue_encryption_key_type       = var.queue_encryption_key_type
   table_encryption_key_type       = var.table_encryption_key_type
-  
+
 
   lifecycle {
     ignore_changes = [
@@ -44,12 +44,6 @@ resource "azurerm_private_endpoint" "private_endpoint" {
 locals {
   storage_account_diagnostic_setting_name          = "${azurerm_storage_account.storage_account.name}-diagnostic-setting"
   storage_account_endpoint_diagnostic_setting_name = "${azurerm_private_endpoint.private_endpoint.name}-diagnostic-setting"
-  storage_account_metrics                          = ["Transaction", "Capacity"]
-
-  storage_account_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
 
   storage_account_services = toset(["blob", "table", "queue", "file"])
 }
@@ -61,7 +55,6 @@ module "storage_account_logs" {
   name                       = local.storage_account_diagnostic_setting_name
   target_resource_id         = azurerm_storage_account.storage_account.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  metrics                    = local.storage_account_metrics
 
 }
 
@@ -72,8 +65,6 @@ module "storage_account_service_logs" {
   name                       = "${local.storage_account_diagnostic_setting_name}-${each.value}"
   target_resource_id         = "${azurerm_storage_account.storage_account.id}/${each.value}Services/default"
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  metrics                    = local.storage_account_metrics
-  enabled_logs               = local.storage_account_enabled_logs
 }
 
 module "storage_account_endpoint_logs" {
@@ -83,5 +74,4 @@ module "storage_account_endpoint_logs" {
   name                       = local.storage_account_endpoint_diagnostic_setting_name
   target_resource_id         = azurerm_private_endpoint.private_endpoint.network_interface[0].id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  save_all_metrics           = true
 }

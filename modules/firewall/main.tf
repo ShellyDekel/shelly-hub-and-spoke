@@ -70,7 +70,7 @@ resource "azurerm_firewall_policy" "firewall_policy" {
   location            = var.location
 
   name = local.firewall_policy_name
-  dns { 
+  dns {
     proxy_enabled = true
     servers       = [] #TODO to var
   }
@@ -83,7 +83,7 @@ resource "azurerm_firewall_policy" "firewall_policy" {
 }
 
 resource "azurerm_firewall_policy_rule_collection_group" "firewall_policy_network_rule_collection_group" {
-  count              = length(var.network_rules) == 0 ? 0 : 1 #TODO more then one rule collection group
+  count = length(var.network_rules) == 0 ? 0 : 1 #TODO more then one rule collection group
 
   firewall_policy_id = azurerm_firewall_policy.firewall_policy.id
   name               = var.network_rule_collection_group_name
@@ -112,7 +112,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "firewall_policy_networ
 }
 
 resource "azurerm_firewall_policy_rule_collection_group" "firewall_policy_application_rule_collection_group" {
-  count              = length(var.application_rules) == 0 ? 0 : 1
+  count = length(var.application_rules) == 0 ? 0 : 1
 
   name               = var.application_rule_collection_group_name
   firewall_policy_id = azurerm_firewall_policy.firewall_policy.id
@@ -187,30 +187,16 @@ locals {
   firewall_diagnostic_setting_name               = "${azurerm_firewall.firewall.name}-diagnostic-setting"
   firewall_ip_diagnostic_setting_name            = "${azurerm_public_ip.firewall_ip.name}-diagnostic-setting"
   firewall_management_ip_diagnostic_setting_name = "${azurerm_public_ip.firewall_management_ip.name}-diagnostic-setting"
-
-  firewall_enabled_logs = { "allLogs" = "categoryGroup" }
-
-  firewall_ip_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
-
-  firewall_management_ip_enabled_logs = {
-    "allLogs" = "categoryGroup"
-    "audit"   = "categoryGroup"
-  }
 }
 
 module "firewall_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
   source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 
-  name                           = local.firewall_diagnostic_setting_name
-  target_resource_id             = azurerm_firewall.firewall.id
-  log_analytics_workspace_id     = var.log_analytics_workspace_id
-  enabled_logs                   = local.firewall_enabled_logs
-  save_all_metrics               = true
-  log_analytics_destination_type = "Dedicated"
+  name                       = local.firewall_diagnostic_setting_name
+  target_resource_id         = azurerm_firewall.firewall.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+  use_dedicated_tables       = true
 }
 
 module "firewall_ip_logs" {
@@ -220,8 +206,6 @@ module "firewall_ip_logs" {
   name                       = local.firewall_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.firewall_ip.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.firewall_ip_enabled_logs
-  save_all_metrics           = true
 }
 
 module "firewall_management_ip_logs" {
@@ -231,6 +215,4 @@ module "firewall_management_ip_logs" {
   name                       = local.firewall_management_ip_diagnostic_setting_name
   target_resource_id         = azurerm_public_ip.firewall_management_ip.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  enabled_logs               = local.firewall_management_ip_enabled_logs
-  save_all_metrics           = true
 }
