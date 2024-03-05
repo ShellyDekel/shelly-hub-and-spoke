@@ -8,6 +8,11 @@ output "name" {
   description = "the name of the virtual network"
 }
 
+output "address_space" {
+  description = "A list of Address Spaces used by the VNet."
+  value       = azurerm_virtual_network.virtual_network.address_space
+}
+
 output "subnets" {
   value       = azurerm_subnet.subnets
   description = "a list of subnets belonging to the virtual network"
