@@ -1,11 +1,10 @@
 locals {
   monitor_spoke_resource_group_name = "shelly-monitor-spoke-terraform"
-  monitor_spoke_location            = "West Europe" #TODO one location to rule them all
 }
 
 resource "azurerm_resource_group" "shelly_monitor_spoke" {
   name     = local.monitor_spoke_resource_group_name
-  location = local.monitor_spoke_location
+  location = local.location
 
   lifecycle {
     ignore_changes = [

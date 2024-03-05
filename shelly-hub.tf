@@ -1,11 +1,10 @@
 locals {
   hub_resource_group_name = "shelly-hub-terraform"
-  hub_location            = "West Europe"
 }
 
 resource "azurerm_resource_group" "shelly_hub" {
   name     = local.hub_resource_group_name
-  location = local.hub_location 
+  location = local.location
 
   lifecycle {
     ignore_changes = [
@@ -85,7 +84,7 @@ locals {
 data "azurerm_client_config" "client" {}
 
 module "shelly_hub_vpn" {
-  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/vpn" #TODO all modules are git repos, with ref 
+  source = "github.com/ShellyDekel/shelly-hub-and-spoke/modules/vpn"
 
   resource_group_name                  = azurerm_resource_group.shelly_hub.name
   location                             = azurerm_resource_group.shelly_hub.location
@@ -125,7 +124,7 @@ module "shelly_hub_route_table" {
 
 locals {
   hub_acr_name          = "shellyhubterraformacr"
-  hub_acr_sku           = "Premium" #TODO lower cost
+  hub_acr_sku           = "Standard"
   hub_default_subnet_id = module.shelly_hub_vnet.subnets["default"].id
 }
 

@@ -1,11 +1,10 @@
 locals {
   work_spoke_resource_group_name = "shelly-work-spoke-terraform"
-  work_spoke_location            = "West Europe"
 }
 
 resource "azurerm_resource_group" "shelly_work_spoke" {
   name     = local.work_spoke_resource_group_name
-  location = local.work_spoke_location
+  location = local.location
 
   lifecycle {
     ignore_changes = [
