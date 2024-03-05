@@ -2,30 +2,36 @@ resource "azurerm_monitor_diagnostic_setting" "diagnostic_setting" {
   name                           = var.name
   target_resource_id             = var.target_resource_id
   log_analytics_workspace_id     = var.log_analytics_workspace_id
-  log_analytics_destination_type = var.log_analytics_destination_type
+  log_analytics_destination_type = var.use_dedicated_tables ? "Dedicated" : "AzureDiagnostics"
 
   dynamic "enabled_log" {
-    for_each = var.enabled_logs
+    iterator = "category_group"
+    for_each = data.azurerm_monitor_diagnostic_categories.log_categories.log_category_groups
 
     content {
-      category       = enabled_log.value == "category" ? enabled_log.key : null
-      category_group = enabled_log.value == "categoryGroup" ? enabled_log.key : null
+      category_group = category_group.value
+    }
+  }
+
+  dynamic "enabled_log" {
+    iterator = "category"
+    for_each = data.azurerm_monitor_diagnostic_categories.log_categories.logs
+
+    content {
+      category_group = category_group.value
     }
   }
 
   dynamic "metric" {
-    for_each = var.save_all_metrics ? [1] : []
-
-    content {
-      category = "AllMetrics"
-    }
-  }
-
-  dynamic "metric" {
-    for_each = var.metrics
+    iterator = "metric"
+    for_each = data.azurerm_monitor_diagnostic_categories.log_categories.metrics
 
     content {
       category = metric.value
     }
   }
+}
+
+data "azurerm_monitor_diagnostic_categories" "log_categories" {
+  resource_id = var.target_resource_id
 }

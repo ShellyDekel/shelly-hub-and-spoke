@@ -13,26 +13,8 @@ variable "log_analytics_workspace_id" {
   description = "(Required) the id of the log analytics workspace to send the logs to"
 }
 
-variable "log_analytics_destination_type" {
+variable "use_dedicated_tables" {
   type        = string
-  default     = null
-  description = "(Optional) Possible values are AzureDiagnostics and Dedicated. When set to Dedicated, logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table."
-}
-
-variable "enabled_logs" {
-  type        = map(string)
-  default     = {}
-  description = "(Optional) a list of logs to save, format is  {log name = log type (category/categoryGroup)}. not all resources have category groups available."
-}
-
-variable "save_all_metrics" {
-  type        = bool
   default     = false
-  description = "(Optional) save all metrics. default false."
-}
-
-variable "metrics" {
-  type        = list(string)
-  default     = []
-  description = "(Optional) a list of metrics to save."
+  description = "(Optional) When set to true, logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. Not all resources support this feature."
 }
