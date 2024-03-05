@@ -1,11 +1,19 @@
-output "aks_id" {
+output "id" {
+  description = "The id of the AKS."
   value       = azurerm_kubernetes_cluster.azure_kubernetes_service.id
-  description = "the id of the aks"
 }
 
-output "aks_name" {
+output "name" {
+  description = "The name of the AKS."
   value       = azurerm_kubernetes_cluster.azure_kubernetes_service.name
-  description = "the name of the aks"
 }
 
-#TODO minimum: id, name, object
+output "object" {
+  description = "The AKS object."
+  value       = azurerm_kubernetes_cluster.azure_kubernetes_service
+}
+
+output "node_pools" {
+  description = "The Node Pools of the AKS."
+  value       = azurerm_kubernetes_cluster_node_pool.node_pools
+}

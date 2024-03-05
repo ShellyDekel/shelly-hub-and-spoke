@@ -1,33 +1,27 @@
 variable "resource_group_name" {
   type        = string
-  description = "(Required) the name of the resource group"
+  description = "(Required) The name of the Resource Group."
 }
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource"
+  description = "(Required) The location of the resource."
 }
 
 variable "aks_name" {
   type        = string
-  description = "(Required) the name of the AKS"
+  description = "(Required) The name of the AKS."
 }
 
 variable "aks_subnet_id" {
   type        = string
-  description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this AKS"
+  description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this AKS."
 }
 
 variable "log_analytics_workspace_id" {
   type        = string
   default     = null
-  description = "(Optional) link to a log analytic workspace"
-}
-
-variable "private_cluster_enabled" {
-  type        = bool
-  default     = true
-  description = "(Optional) enable private cluster (Default true)"
+  description = "(Optional) Link to a Log Analytic Workspace."
 }
 
 variable "automatic_channel_upgrade" {
@@ -39,49 +33,49 @@ variable "automatic_channel_upgrade" {
 variable "azure_policy_enabled" {
   type        = bool
   default     = true
-  description = "(Optional) Enable Azure Policy (Default true)"
+  description = "(Optional) Enable Azure Policy (Default true)."
 }
 
 variable "private_cluster_public_fqdn_enabled" {
   type        = bool
   default     = true
-  description = "(Optional) Specifies whether a Public FQDN for this Private Cluster should be added (Default true)"
+  description = "(Optional) Specifies whether a Public FQDN for this Private Cluster should be added (Default true)."
 }
 
 variable "sku_tier" {
   type        = string
   default     = "Standard"
-  description = "(Optional) The SKU Tier that should be used for this Kubernetes Cluster. Possible values are Free, Standard and Premium. (Default Standard)"
+  description = "(Optional) The SKU Tier that should be used for this Kubernetes Cluster. Possible values are Free, Standard and Premium. (Default Standard)."
 }
 
 variable "network_policy" {
   type        = string
   default     = "calico"
-  description = "(Optional) Sets up network policy to be used with Azure CNI. supported values are calico, azure and cilium (Default calico)"
+  description = "(Optional) Sets up network policy to be used with Azure CNI. supported values are Calico, Azure and Cilium (Default Calico)."
 }
 
 variable "default_node_pool_name" {
   type        = string
   default     = "agentpool"
-  description = "(Optional) the name of the default node pool"
+  description = "(Optional) The name of the default Node Pool."
 }
 
 variable "default_node_pool_node_count" {
   type        = number
   default     = 2
-  description = "(Optional) node count for the default node pool"
+  description = "(Optional) The node count for the default Node Pool."
 }
 
 variable "default_node_pool_vm_size" {
   type        = string
   default     = "Standard_D8ds_v5"
-  description = "(Optional) the size of the vm in the default node pool"
+  description = "(Optional) The size of the VM in the default Node Pool."
 }
 
 variable "default_node_pool_only_critical_addons_enabled" {
   type        = bool
   default     = true
-  description = "(Optional) enable only critical addons, default true"
+  description = "(Optional) Enable only critical addons, default true."
 }
 
 variable "default_node_pool_os_disk_type" {
@@ -126,11 +120,11 @@ variable "identity_ids" {
   description = "(Optional) Specifies a list of User Assigned Managed Identity IDs to be assigned to this Kubernetes Cluster."
 }
 
-variable "cluster_node_pools" {#TODO move to list of object, strongly type 
-  type        = map(string)
-  default     = {}
-  description = "(Optional) add more node pools to the cluster, format is {cluster_name = vm_size}"
+variable "cluster_node_pools" {
+  type = list(object({
+    cluster_name = string
+    vm_size      = string
+  }))
+  default     = []
+  description = "(Optional) Add more Node Pools to the AKS."
 }
-
-#TODO add terraform docs for every module. with sample usage.
-#TODO add tests. 
