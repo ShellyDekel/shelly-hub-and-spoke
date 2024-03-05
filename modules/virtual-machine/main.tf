@@ -50,7 +50,7 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   }
 
   dynamic "identity" {
-    for_each = var.identities_list == null ? [] : [1]
+    for_each = var.identities_list == null ? [] : [false]
 
     content {
       type         = "UserAssigned"
@@ -97,7 +97,7 @@ resource "azurerm_windows_virtual_machine" "virtual_machine" {
   }
 
   dynamic "identity" {
-    for_each = var.identities_list == null ? [] : [1]
+    for_each = var.identities_list == null ? [] : [false]
 
     content {
       type         = "UserAssigned" #TODO add system 

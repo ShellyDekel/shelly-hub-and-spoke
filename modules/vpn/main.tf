@@ -85,7 +85,7 @@ resource "azurerm_virtual_network_gateway" "vpn_gateway" {
   }
 
   dynamic "ip_configuration" {
-    for_each = var.active_active ? [1] : []
+    for_each = var.active_active ? [false] : []
 
     content {
       name                          = "activeActive"

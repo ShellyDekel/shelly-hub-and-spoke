@@ -20,7 +20,7 @@ resource "azurerm_subnet" "subnets" {
   name                 = each.key
   address_prefixes     = each.value.address_prefixes
 
-  enforce_private_link_endpoint_network_policies = true
+  private_endpoint_network_policies_enabled = true
 }
 
 resource "azurerm_network_security_group" "default_subnet_nsg" {
