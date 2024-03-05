@@ -25,3 +25,8 @@ output "admin_password" {
 
   description = "sensitive. the password for the admin user of the virtual machine."
 }
+
+output "private_ip_address" {
+  description = "The private IP Address of the VM"
+  value       = var.vm_type == "linux" ? azurerm_linux_virtual_machine.virtual_machine[0].private_ip_address : azurerm_windows_virtual_machine.virtual_machine[0].private_ip_address
+}
