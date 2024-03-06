@@ -1,20 +1,29 @@
 output "id" {
+  description = "The resource ID of the Storage Account."
   value       = azurerm_storage_account.storage_account.id
-  description = "the resource id of the storage account"
 }
 
 output "name" {
+  description = "The name of the Storage Account."
   value       = azurerm_storage_account.storage_account.name
-  description = "the name of the storage account"
 }
 
-output "endpoint_id" {
+output "object" {
+  description = "The Storage Account object."
+  value       = azurerm_storage_account.storage_account
+}
+
+output "private_endpoint_id" {
+  description = "The resource ID of the Private Endpoint of the Storage Account."
   value       = azurerm_private_endpoint.private_endpoint.id
-  description = "the resource id of the private endpoint"
 }
 
-output "endpoint_name" {
+output "private_endpoint_name" {
+  description = "The name of the Private Endpoint of the Storage Account."
   value       = azurerm_private_endpoint.private_endpoint.name
-  description = "the name of the private endpoint"
 }
 
+output "private_endpoint_object" {
+  description = "The Private Endpoint object"
+  value       = azurerm_private_endpoint.private_endpoint
+}

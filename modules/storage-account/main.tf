@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storage_account" {
-  name                            = var.storage_account_name
+  name                            = var.name
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_kind                    = var.account_type
@@ -9,6 +9,7 @@ resource "azurerm_storage_account" "storage_account" {
   allow_nested_items_to_be_public = false
   queue_encryption_key_type       = var.queue_encryption_key_type
   table_encryption_key_type       = var.table_encryption_key_type
+  public_network_access_enabled   = false
 
 
   lifecycle {
@@ -19,16 +20,16 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 locals {
-  default_storage_account_endpoint_name = "${var.storage_account_name}-private-endpoint"
+  default_private_endpoint_name = "${var.name}-private-endpoint"
 }
 resource "azurerm_private_endpoint" "private_endpoint" {
-  name                = var.storage_account_endpoint_name == null ? local.default_storage_account_endpoint_name : var.storage_account_endpoint_name
+  name                = var.private_endpoint_name == null ? local.default_private_endpoint_name : var.private_endpoint_name
   resource_group_name = var.resource_group_name
   location            = var.location
   subnet_id           = var.subnet_id
 
   private_service_connection {
-    name                           = "${var.storage_account_endpoint_name}-connection"
+    name                           = "${azurerm_private_endpoint.private_endpoint.name}-connection"
     private_connection_resource_id = azurerm_storage_account.storage_account.id
     subresource_names              = ["blob"] #TODO add
     is_manual_connection           = false
@@ -67,7 +68,7 @@ module "storage_account_service_logs" {
   log_analytics_workspace_id = var.log_analytics_workspace_id
 }
 
-module "storage_account_endpoint_logs" {
+module "private_endpoint_logs" {
   count  = var.log_analytics_workspace_id == null ? 0 : 1
   source = "github.com/ShellyDekel/shelly-hub-and-spoke/log-analytics-diagnostic-setting"
 

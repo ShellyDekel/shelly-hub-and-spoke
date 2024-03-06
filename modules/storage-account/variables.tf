@@ -1,23 +1,22 @@
 variable "resource_group_name" {
   type        = string
-  description = "(Required) the name of the resource group"
+  description = "(Required) The name of the Resource Group."
 }
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource"
+  description = "(Required) The location of the resource."
 }
 
-variable "storage_account_name" {
+variable "name" {
   type        = string
-  description = "(Required) the name of the storage account"
+  description = "(Required) The name of the Storage Account."
 }
 
-variable "storage_account_endpoint_name" {
+variable "private_endpoint_name" {
   type    = string
   default = null
-
-  description = "(Optional) specify a name for the private endpoint of the storage account"
+  description = "(Optional) Specify a name for the Private Endpoint of the Storage Account."
 }
 
 variable "subnet_id" {
