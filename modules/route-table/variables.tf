@@ -1,16 +1,16 @@
 variable "resource_group_name" {
   type        = string
-  description = "(Required) the name of the resource group"
+  description = "(Required) The name of the Resource Group."
 }
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource"
+  description = "(Required) The location of the resource."
 }
 
-variable "route_table_name" {
+variable "name" {
   type        = string
-  description = "(Required) the name of the route table"
+  description = "(Required) The name of the Route Table."
 }
 
 variable "routes" {
@@ -22,12 +22,12 @@ variable "routes" {
   }))
   default = []
 
-  description = "(Optional) a list of routes for the routing table. format is: [{name, addres_prefix, next_hop_type, next_hop_in_ip_address}]"
+  description = "(Optional) A list of routes for the Route Table."
 }
 
 variable "associated_subnet_ids" {
-  type = set(string)
+  type = list(string)
   default = []
 
-  description = "(Optional) associate the route table to subnets."
+  description = "(Optional) A list of Subnets to be associated with the Route Table."
 }
