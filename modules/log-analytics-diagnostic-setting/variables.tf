@@ -1,16 +1,16 @@
 variable "name" {
   type        = string
-  description = "(Required) the name of the connection"
+  description = "(Required) The name of the Diagnostic Setting."
 }
 
 variable "target_resource_id" {
   type        = string
-  description = "(Required) the id of the resource where logs should be enabled"
+  description = "(Required) The ID of the resource where logs should be enabled,"
 }
 
 variable "log_analytics_workspace_id" {
   type        = string
-  description = "(Required) the id of the log analytics workspace to send the logs to"
+  description = "(Required) The ID of the Log Analytics Workspace to send the logs to."
 }
 
 variable "use_dedicated_tables" {

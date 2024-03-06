@@ -1,9 +1,14 @@
 output "id" {
+  description = "The ID of the Diagnostic Setting."
   value       = azurerm_monitor_diagnostic_setting.diagnostic_setting.id
-  description = "the id of the diagnostic setting"
 }
 
 output "name" {
+  description = "The name of the Diagnostic Setting."
   value       = azurerm_monitor_diagnostic_setting.diagnostic_setting.name
-  description = "the name of the diagnostic setting"
+}
+
+output "object" {
+  description = "The Diagnostic Setting object"
+  value       = azurerm_monitor_diagnostic_setting.diagnostic_setting
 }
