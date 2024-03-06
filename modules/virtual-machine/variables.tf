@@ -1,60 +1,60 @@
-variable "vm_name" {
+variable "name" {
   type        = string
-  description = "(Required) the name of the virtual machine"
+  description = "(Required) The name of the Virtual Machine."
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "(Required) the name of the resource group"
+  description = "(Required) The name of the Resource Group."
 }
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource"
+  description = "(Required) The location of the resource."
 }
 
 variable "subnet_id" {
   type        = string
-  description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this virtual machine"
+  description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this VM."
 }
 
 variable "availability_zone" {
   type        = string
   default     = null
-  description = "(Optional) Specifies the Availability Zones in which this Linux Virtual Machine should be located."
+  description = "(Optional) Specifies the Availability Zones in which this VM should be located."
 }
 
 variable "identities_list" {
   type        = list(string)
   nullable    = true
   default     = null
-  description = "(Optional) attach user assigned identities, a list of identity IDs"
+  description = "(Optional) A list of User Assigned Identity IDs to attatch to the VM."
 }
 
 variable "vm_username" {
   type        = string
-  description = "(Required) specify a a name for the admin user of the vm."
+  description = "(Required) The name for the VM's Admin User."
 }
 
 variable "vm_password" {
   type        = string
   sensitive   = true
-  description = "(Required) the password for the VM's admin user. sensitive value"
+  description = "(Required) The password for the VM's Admin User. Sensitive value."
 }
 
-variable "vm_size" {
+variable "size" {
   type        = string
   description = "(Required) The SKU which should be used for this Virtual Machine."
 }
 
-variable "vm_type" {
+variable "type" {
   type        = string
-  default     = "linux"
-  description = "(Optional) type of virtual machine, can be linux or windows. default is linux."
+  default     = "Linux"
+  description = "(Optional) The type of VM to create, can be Linux or Windows. defaults to Linux."
 
   validation {
-    condition     = contains(["linux", "windows"], var.vm_type)
-    error_message = "error: not a valid vm type"
+    condition     = contains(["Linux", "Windows"], var.type)
+    error_message = "error: not a valid VM type."
   }
 }
 
@@ -73,13 +73,13 @@ variable "nic_ip_allocation_method" {
 variable "os_disk_caching" {
   type        = string
   default     = "ReadWrite"
-  description = "(Optional) The Type of Caching which should be used for the Internal OS Disk. Possible values are None, ReadOnly and ReadWrite. Defaults to ReadWrite."
+  description = "(Optional) The type of Caching which should be used for the Internal OS Disk. Possible values are None, ReadOnly and ReadWrite. Defaults to ReadWrite."
 }
 
 variable "os_disk_storage_account_type" {
   type        = string
-  default     = "Premium_LRS"
-  description = "(Required) The Type of Storage Account which should back this the Internal OS Disk. Possible values are Standard_LRS, StandardSSD_LRS, Premium_LRS, StandardSSD_ZRS and Premium_ZRS. Defaults to Premium_LRS."
+  default     = "StandardSSD_LRS"
+  description = "(Required) The Type of Storage Account which should back this the Internal OS Disk. Possible values are Standard_LRS, StandardSSD_LRS, Premium_LRS, StandardSSD_ZRS and Premium_ZRS. Defaults to StandardSSD_LRS."
 }
 
 variable "source_image_reference" { #TODO make optional 
@@ -90,11 +90,11 @@ variable "source_image_reference" { #TODO make optional
     version   = string
   })
 
-  description = "(Required) specify the source image for your virtual machine. requires a publisher, offer, sku, and version."
+  description = "(Required) Specify the Source Image for the VM."
 }
 
 variable "log_analytics_workspace_id" {
   type        = string
   default     = null
-  description = "(Optional) link resource to a log analytics workspace to enable logs."
+  description = "(Optional) Link resource to a Log Analytics Workspace to enable logs."
 }

@@ -1,5 +1,12 @@
+locals {
+  types = {
+    "linux" = "Linux"
+    "windows" = "Windows"
+  }
+}
+
 resource "azurerm_network_interface" "network_interface" {
-  name                          = "${var.vm_name}-nic"
+  name                          = "${var.name}-nic"
   resource_group_name           = var.resource_group_name
   location                      = var.location
   enable_accelerated_networking = true
@@ -18,12 +25,12 @@ resource "azurerm_network_interface" "network_interface" {
 }
 
 resource "azurerm_linux_virtual_machine" "virtual_machine" {
-  count                           = var.vm_type == "linux" ? 1 : 0
+  count                           = var.type == local.types["linux"] ? 1 : 0
 
-  name                            = var.vm_name
+  name                            = var.name
   resource_group_name             = var.resource_group_name
   location                        = var.location
-  size                            = var.vm_size
+  size                            = var.size
   admin_username                  = var.vm_username
   admin_password                  = var.vm_password
   disable_password_authentication = false #TODO to var
@@ -66,12 +73,12 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
 }
 
 resource "azurerm_windows_virtual_machine" "virtual_machine" {
-  count = var.vm_type == "windows" ? 1 : 0
+  count = var.type == local.types["windows"] ? 1 : 0
 
-  name                       = var.vm_name
+  name                       = var.name
   resource_group_name        = var.resource_group_name
   location                   = var.location
-  size                       = var.vm_size
+  size                       = var.size
   admin_username             = var.vm_username
   admin_password             = var.vm_password
   encryption_at_host_enabled = false
