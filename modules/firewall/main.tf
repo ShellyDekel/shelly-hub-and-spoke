@@ -1,7 +1,7 @@
 locals {
-  firewall_ip_name            = "${var.firewall_name}-IP"
-  firewall_management_ip_name = "${var.firewall_name}-management-IP"
-  firewall_policy_name        = "${var.firewall_name}-policy"
+  firewall_ip_name            = "${var.name}-IP"
+  firewall_management_ip_name = "${var.name}-management-IP"
+  firewall_policy_name        = "${var.name}-policy"
   ip_allocation_method        = "Static"
 } #TODO understand forced tunneling
 #TODO forced tunneling - optional.
@@ -40,9 +40,9 @@ resource "azurerm_firewall" "firewall" {
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  name               = var.firewall_name
-  sku_name           = var.firewall_sku_name
-  sku_tier           = var.firewall_sku_tier
+  name               = var.name
+  sku_name           = var.sku_name
+  sku_tier           = var.sku_tier
   firewall_policy_id = azurerm_firewall_policy.firewall_policy.id
 
   ip_configuration {

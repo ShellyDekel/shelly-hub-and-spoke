@@ -9,18 +9,18 @@ variable "location" {
 }
 
 
-variable "firewall_name" {
+variable "name" {
   type        = string
-  description = "(Required) The name of the firewall."
+  description = "(Required) The name of the Firewall."
 }
 
-variable "firewall_sku_name" {
+variable "sku_name" {
   type        = string
   default     = "AZFW_VNet"
   description = "(Optional) The SKU name of the Firewall. Possible values are AZFW_Hub and AZFW_VNet. Defaults to AZFW_VNet."
 }
 
-variable "firewall_sku_tier" {
+variable "sku_tier" {
   type        = string
   default     = "Standard"
   description = "(Optional) The SKU tier of the firewall. Possible values are Premium, Standard and Basic. Defaults to Standard."
@@ -29,7 +29,7 @@ variable "firewall_sku_tier" {
 variable "ip_sku_tier" {
   type        = string
   default     = "Standard"
-  description = "(Optional) The SKU tier of the firewall's public IP's. Possible values are Standard and Basic. Defaults to Standard."
+  description = "(Optional) The SKU tier of the Firewall's public IP's. Possible values are Standard and Basic. Defaults to Standard."
 }
 
 variable "network_rule_collection_group_name" {
