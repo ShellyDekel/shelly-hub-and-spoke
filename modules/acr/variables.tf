@@ -13,7 +13,7 @@ variable "subnet_id" {
   description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this ACR."
 }
 
-variable "acr_name" {
+variable "name" {
   type        = string
   description = "(Required) The name of the ACR."
 }
