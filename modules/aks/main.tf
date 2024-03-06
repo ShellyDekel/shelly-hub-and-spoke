@@ -1,9 +1,9 @@
 locals {
-  dns_prefix = replace(var.aks_name, "-", "")
+  dns_prefix = replace(var.name, "-", "")
 }
 
 resource "azurerm_kubernetes_cluster" "azure_kubernetes_service" {
-  name                = var.aks_name
+  name                = var.name
   location            = var.location
   resource_group_name = var.resource_group_name
   dns_prefix          = local.dns_prefix
@@ -21,7 +21,7 @@ resource "azurerm_kubernetes_cluster" "azure_kubernetes_service" {
     vm_size                      = var.default_node_pool_vm_size
     only_critical_addons_enabled = var.default_node_pool_only_critical_addons_enabled
     os_disk_type                 = var.default_node_pool_os_disk_type
-    vnet_subnet_id               = var.aks_subnet_id
+    vnet_subnet_id               = var.subnet_id
     enable_auto_scaling          = var.default_node_pool_enable_auto_scaling
     max_count                    = var.default_node_pool_max_count
     min_count                    = var.default_node_pool_min_count

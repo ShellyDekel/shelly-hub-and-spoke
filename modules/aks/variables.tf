@@ -8,12 +8,12 @@ variable "location" {
   description = "(Required) The location of the resource."
 }
 
-variable "aks_name" {
+variable "name" {
   type        = string
   description = "(Required) The name of the AKS."
 }
 
-variable "aks_subnet_id" {
+variable "subnet_id" {
   type        = string
   description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this AKS."
 }
