@@ -1,20 +1,23 @@
 variable "resource_group_name" {
   type        = string
-  description = "(Required) the name of the resource group"
+  description = "(Required) The name of the Resource Group."
 }
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource"
+  description = "(Required) the location of the resource."
 }
 
-variable "identity_name" {
+variable "name" {
   type        = string
-  description = "(Required) the name of the user assigned identity"
+  description = "(Required) The name of the User Assigned Identity."
 }
 
 variable "role_assignments" {
-  type        = map(string)
-  default     = {}
-  description = "(Optional) the role assignments for the identity, format is {role_definition_name = scope}"
+  type = list(object({
+    role_definition_name = string
+    scope                = string
+  }))
+  default     = []
+  description = "(Optional) The Role Assignments for the Identity."
 }
