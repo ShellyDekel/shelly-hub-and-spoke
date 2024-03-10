@@ -5,7 +5,7 @@ variable "resource_group_name" {
 
 variable "location" {
   type        = string
-  description = "(Required) the location of the resource."
+  description = "(Required) The location of the resource."
 }
 
 variable "name" {
