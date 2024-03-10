@@ -61,7 +61,7 @@ variable "type" {
 variable "nic_ip_configuration_name" {
   type        = string
   default     = "ipconfig1"
-  description = "(Optional) specify a name for the nic's IP Configuration."
+  description = "(Optional) Specify a name for the nic's IP Configuration."
 }
 
 variable "nic_ip_allocation_method" {
